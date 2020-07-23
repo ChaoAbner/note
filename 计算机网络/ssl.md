@@ -1,0 +1,4 @@
+# ssl
+
+SSL(Secure Sockets Layer [安全套接层](https://baike.baidu.com/item/安全套接层)),及其继任者[传输层安全](https://baike.baidu.com/item/传输层安全)（Transport Layer Security，TLS）是为[网络通信](https://baike.baidu.com/item/网络通信/9636548)提供安全及[数据完整性](https://baike.baidu.com/item/数据完整性/110071)的一种安全协议。TLS与SSL在[传输层](https://baike.baidu.com/item/传输层/4329536)与应用层之间对网络连接进行加密。
+
