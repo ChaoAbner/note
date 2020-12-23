@@ -109,6 +109,8 @@ SSL使用序列号来保护通讯方免受报文重放攻击。这个序列号�
 
 ## 六、Https的连接过程
 
+https://www.ruanyifeng.com/blog/2014/02/ssl_tls.html
+
 ![](https://img-blog.csdn.net/20180709141944471?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4Mjg5ODE1/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 
 图片中的过程是按8个步骤分的，但是网上有更详细的步骤，所以我把详细的过程和这个图片配在一起。
