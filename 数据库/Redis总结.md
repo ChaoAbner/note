@@ -192,9 +192,9 @@ Redis 集群中应该有奇数个节点，所以至少有三个节点。
 
 **redis-cluster通信协议**
 
-redis cluster节点间采取gossip协议进行通信
+redis cluster节点间采取`gossip`协议进行通信
 
-gossip协议包含多种消息，包括ping，pong，meet，fail等等。
+gossip协议包含多种消息，包括`ping，pong，meet，fail`等等。
 
 - meet：某个节点发送meet给新加入的节点，让新节点加入集群中，然后新节点就会开始与其他节点进行通信；
 
