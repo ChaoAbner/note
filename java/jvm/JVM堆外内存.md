@@ -7,8 +7,6 @@
 **1、堆内内存（on-heap memory）回顾**
  堆外内存和堆内内存是相对的二个概念，其中堆内内存是我们平常工作中接触比较多的，我们在jvm参数中只要使用-Xms，-Xmx等参数就可以设置堆的大小和最大值，理解jvm的堆还需要知道下面这个公式：
 
-
-
 ```undefined
 堆内内存 = 新生代+老年代+持久代
 ```
@@ -27,7 +25,6 @@ Paste_Image.png
 
 **常见的垃圾回收算法主要有：**
 
-- 引用计数器法（Reference Counting）
 - 标记清除法（Mark-Sweep）
 - 复制算法（Coping）
 - 标记压缩法（Mark-Compact）
@@ -127,8 +124,6 @@ java.nio.DirectByteBuffer对象在创建过程中会先通过Unsafe接口直接�
 我们在写NIO程序经常使用ByteBuffer来读取或者写入数据，那么使用ByteBuffer.allocate(capability)还是使用ByteBuffer.allocteDirect(capability)来分配缓存了？第一种方式是分配JVM堆内存，属于GC管辖范围，由于需要拷贝所以速度相对较慢；第二种方式是分配OS本地内存，不属于GC管辖范围，由于不需要内存拷贝所以速度相对较快。
 
 代码如下：
-
-
 
 ```java
 package com.stevex.app.nio;
