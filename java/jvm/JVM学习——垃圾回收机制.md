@@ -46,7 +46,7 @@
 
 导致堆中对象的这种循环引用
 
-![1583301510829](F:\typoraImg\1583301510829.png)
+![1583301510829](http://img.fosuchao.com/1583301510829.png)
 
 ### 可达性分析算法
 
@@ -112,17 +112,13 @@ finalize（）方法是对象脱逃死亡命运的最后一次机会，稍后GC�
 
 1、标记阶段：标记的过程就是前面的**可达性分析法**执行的过程。首先**遍历所有 GC Roots 对象**，对从 GC Roots 对象可达的对象都打上一个可达标识。这个可达标识一般记录在对象 header 中（一个对象一般包括对象头、实例数据、对齐填充三个部分），表示该对象可以被 GC Roots 访问。参考下图（图来自网上）
 
-
-
-![img](https:////upload-images.jianshu.io/upload_images/6762021-18c73d39d1889f60.png?imageMogr2/auto-orient/strip|imageView2/2/w/660/format/webp)
+![image-20210223231712048](http://img.fosuchao.com/image-20210223231712048.png)
 
 可以看到，上图 B、E、F、G、J、K 对象是可达对象，所以这些对象的对象头中就会记录可达信息。
 
 ​	2、清除阶段：清除阶段是对堆内存进行遍历，通过读取这些对象的 header 信息来获取对象是否标记可达。如果**未标记则表示这些对象没有引用，就可以进行回收**。
 
-
-
-![img](https:////upload-images.jianshu.io/upload_images/6762021-d25f19b967f2cb94.png?imageMogr2/auto-orient/strip|imageView2/2/w/643/format/webp)
+![image-20210223231727196](http://img.fosuchao.com/image-20210223231727196.png)
 
 标记 - 清除算法主要不足有两个：
 

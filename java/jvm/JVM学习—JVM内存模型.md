@@ -4,13 +4,13 @@
 
 ​    JVM = 类加载器(classloader) + 执行引擎(execution engine) + 运行时数据区域(runtime data area) 
 
-![img](F:\typoraImg\162d2f9353c858ad)
+![img](http://img.fosuchao.com/162d2f9353c858ad)
 
 ## 运行时数据区域 　
 
 ​      Java虚拟机在执行Java程序的过程中会把它所管理的内存划分为若干个不同的数据区域。这些区域都有各自的用途，以及创建和销毁的时间，有的区域随着虚拟机进程的启动而存在，有些区域则是依赖用户线程的启动和结束而建立和销毁。 
 
-![img](F:\typoraImg\162d2f9a1478a672)
+![img](http://img.fosuchao.com/162d2f9a1478a672)
 
 ### 程序计数器（Program Counter Register）
 
@@ -36,8 +36,6 @@
 
 ### Java堆（Heap）
 
-
-
 被所有**线程共享**，在虚拟机启动时创建，用来存放对象实例，**几乎所有的对象实例都在这里分配内存**。
 
 对于大多数应用来说，Java堆（Java Heap）是Java虚拟机所管理的内存中**最大**的一块。
@@ -46,9 +44,7 @@ Java堆是垃圾收集器管理的主要区域，因此很多时候也被称做�
 
 Java 堆不需要连续内存，并且可以通过动态增加其内存，增加失败会抛出 OutOfMemoryError 异常。
 
-
-
-![img](F:\typoraImg\162d300f8844c943)
+![img](http://img.fosuchao.com/162d300f8844c943)
 
 ### 方法区（Method Area）
 
@@ -63,7 +59,7 @@ Java 堆不需要连续内存，并且可以通过动态增加其内存，增加
 - Class 文件中的常量池（编译器生成的各种字面量和符号引用）会在类加载后被放入这个区域。
 - 除了在编译期生成的常量，还允许动态生成，例如 String 类的 intern()。这部分常量也会被放入运行时常量池。
 
-![img](F:\typoraImg\162d308898c6f1c0)
+![img](http://img.fosuchao.com/162d308898c6f1c0)
 
 注：
 

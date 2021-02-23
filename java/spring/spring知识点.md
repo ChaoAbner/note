@@ -44,7 +44,7 @@
 
 ### bean的生命周期
 
-![1581520565041](F:\typoraImg\1581520565041.png)
+![1581520565041](http://img.fosuchao.com/1581520565041.png)
 
 #### 1. 实例化Bean
 
@@ -108,7 +108,7 @@ InitializingBean接口只有一个函数：
 
 ### 关于Servlet
 
-![1581520928549](F:\typoraImg\1581520928549.png)
+![1581520928549](http://img.fosuchao.com/1581520928549.png)
 
 ### Spring中自动装配的方式
 
@@ -237,5 +237,5 @@ http://www.ityouknow.com/springboot/2019/07/24/springboot-interview.html
 
 10、客户端得到响应。
 
-![img](F:\typoraImg\1586802-20190526203737947-944715206.png)
+![img](http://img.fosuchao.com/1586802-20190526203737947-944715206.png)
 

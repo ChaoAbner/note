@@ -183,7 +183,7 @@ HashMap是一种键值对存储的数据结构，底层使用数组+链表/红�
 
 2、可能**造成死循环**，两个线程都要resize，但是线程A还没有resize，线程B被调度执行，完成了resize操作后，开始迁移数据，因为**迁移是由链表尾向头**进行的。等迁移完成后，时间片还给线程A执行的时候，这是就发生了死循环。
 
-![img](https:////upload-images.jianshu.io/upload_images/7853175-ab75cd3738471507.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![image-20210223233355740](http://img.fosuchao.com/image-20210223233355740.png)
 
 **多线程HashMap的resize**
 
@@ -196,15 +196,15 @@ HashMap是一种键值对存储的数据结构，底层使用数组+链表/红�
 
 当链表长度超过8的时候，并且满足hashMap容量大于64的时候，会将链表转化为红黑树。如果hashMap 的容量没有超过64的话，优先进行扩容(resize())。
 
-![1581925782849](F:\typoraImg\1581925782849.png)
+![1581925782849](http://img.fosuchao.com/1581925782849.png)
 
-![1581925879564](F:\typoraImg\1581925879564.png)
+![1581925879564](http://img.fosuchao.com/1581925879564.png)
 
 **默认容量**
 
 默认容量是16，必须是**2的指数次幂**，可以指定容量，当不满足2的指数次幂的时候，会取到最近距离的2的指数次幂的数来作为初始容量。
 
-![1581925969001](F:\typoraImg\1581925969001.png)
+![1581925969001](http://img.fosuchao.com/1581925969001.png)
 
 **为什么是2的指数次幂**
 

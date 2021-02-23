@@ -107,7 +107,7 @@ https://blog.csdn.net/bingbeichen/article/details/83615903
 
 ​		从WIKI的定义中，我们看到**“零拷贝”是指计算机操作的过程中，CPU不需要为数据在内存之间的拷贝消耗资源。**而它通常是指计算机在网络上发送文件时，不需要将文件内容拷贝到用户空间（User Space）而直接在内核空间（Kernel Space）中传输到网络的方式。
 
-![1582268598944](F:\typoraImg\1582268598944.png)
+![1582268598944](http://img.fosuchao.com/1582268598944.png)
 
 ​		在零拷贝中，**避免了数据在用户空间和内存空间实际的拷贝**。从而提高性能。**Linux**中的**sendfile**()以及Java **NIO**中的**FileChannel.transferTo()**方法都实现了零拷贝的功能，而在Netty中也通过在FileRegion中包装了NIO的FileChannel.transferTo()方法实现了零拷贝。
 
@@ -148,7 +148,7 @@ JAVA语言编译之后会生成一个.class文件，反射就是通过字节码�
 
 下界<? super Apple>，表示Apple的所有父类，包括Fruit，一直可以追溯到老祖宗Object 。那么当我add的时候，我不能add Apple的父类，因为不能确定List里面存放的到底是哪个父类。但是我可以add Apple及其子类。因为不管我的子类是什么类型，它都可以向上转型为Apple及其所有的父类甚至转型为Object 。但是当我get的时候，Apple的父类这么多，我用什么接着呢，除了Object，其他的都接不住。
 
-![1582530565127](F:\typoraImg\1582530565127.png)
+![1582530565127](http://img.fosuchao.com/1582530565127.png)
 
 > PECS原则
 
@@ -175,7 +175,7 @@ Java内存模型即Java Memory Model，简称**JMM**。JMM定义了Java 虚拟�
 如果我们要想深入了解Java并发编程，就要先理解好Java内存模型。**Java内存模型定义了多线程之间共享变量的可见性以及如何在需要的时候对共享变量进行同步**。原始的Java内存模型效率并不是很理想，因此Java1.5版本对其进行了重构，现在的Java8仍沿用了Java1.5的版本。
 
 *** ** **java使用共享内存的方式来实线程之间的通信**，这种共享内存的模型就是java内存模型。共享内存这里指的是主内存（物理内存），每个线程都独有一个本地内存，**本地内存中存储了该线程以读/写共享变量的副本**。本地内存是JMM的一个抽象概念，并不真实存在。它涵盖了缓存，写缓冲区，寄存器以及其他的硬件和编译器优化。当线程要修改变量的时候，从主存读取，修改后再刷新到主存，整个流程即是修改变量的过程。
-![1581681715124](F:\typoraImg\1581681715124.png)
+![1581681715124](http://img.fosuchao.com/1581681715124.png)
 
 此知识点涉及到**可见性**和**线程安全**的问题（volatile，synchronized	）
 
@@ -185,7 +185,7 @@ Java内存模型即Java Memory Model，简称**JMM**。JMM定义了Java 虚拟�
 
 String真的不可变吗？不是的，可以通过反射的方式拿到char数组，对里面的字符进行修改。
 
-![1582255228638](F:\typoraImg\1582255228638.png)
+![1582255228638](http://img.fosuchao.com/1582255228638.png)
 
 StringBuffer线程安全，StringBuilder线程不安全
 
@@ -405,7 +405,7 @@ HashMap是一种键值对存储的数据结构，底层使用数组+链表/红�
 
 2、可能**造成死循环**，两个线程都要resize，但是线程A还没有resize，线程B被调度执行，完成了resize操作后，开始迁移数据，因为**迁移是由链表尾向头**进行的。等迁移完成后，时间片还给线程A执行的时候，这是就发生了死循环。
 
-![img](https:////upload-images.jianshu.io/upload_images/7853175-ab75cd3738471507.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![image-20210223233454097](http://img.fosuchao.com/image-20210223233454097.png)
 
 **多线程HashMap的resize**
 
@@ -418,15 +418,15 @@ HashMap是一种键值对存储的数据结构，底层使用数组+链表/红�
 
 当链表长度超过8的时候，并且满足hashMap容量大于64的时候，会将链表转化为红黑树。如果hashMap 的容量没有超过64的话，优先进行扩容(resize())。
 
-![1581925782849](F:\typoraImg\1581925782849.png)
+![1581925782849](http://img.fosuchao.com/1581925782849.png)
 
-![1581925879564](F:\typoraImg\1581925879564.png)
+![1581925879564](http://img.fosuchao.com/1581925879564.png)
 
 **默认容量**
 
 默认容量是16，必须是**2的指数次幂**，可以指定容量，当不满足2的指数次幂的时候，会取到最近距离的2的指数次幂的数来作为初始容量。
 
-![1581925969001](F:\typoraImg\1581925969001.png)
+![1581925969001](http://img.fosuchao.com/1581925969001.png)
 
 **为什么是2的指数次幂**
 

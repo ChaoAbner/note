@@ -36,7 +36,7 @@
 
  
 
-![img](https://img-blog.csdnimg.cn/20200227225231885.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231885.png)
 
 
 
@@ -54,11 +54,11 @@
 
 1）线程1在执行同步代码块之前，如果此同步对象没有被锁定（锁标志位为“01”状态），JVM会先在当前线程的栈帧中创建一个名为***\*锁记录（Lock Record）\****的空间用来存储锁记录，然后再把对象头中的MarkWord复制到该锁记录中，官方称之为***\*Displaced Mark Word\****。然后线程尝试使用***\*CAS\****将对象头中的MarkWord 替换为指向锁记录的指针（锁状态为轻量级锁的Mark Word中存储的就是指向持有锁的线程的所记录的指针，这个操作详细就是***\*使用\*******\*CAS\*******\*操作尝试将对象\*******\*Mark Word\*******\*中的\*******\*Lock Word\*******\*更新为指向当前线程\*******\*Lock Record\*******\*的指针，并将\*******\*Lock record\*******\*里的\*******\*owner\*******\*指针指向\*******\*object mark word\****）。如果成功，即代表该线程拥有了这个对象的锁，并且对象Mark Word的锁标志位（Mark Word的 最后两个比特）将转变为“00”，表示此对象处于轻量级锁定状态。进入***\*步骤3）\****。如果该操作失败，那就意味着至少存在一条线程与当前线程竞争获取该对象的锁，虚拟机首先会检查对象的Mark Word是否指向当前线程的栈帧，如果是，说明当前线程已经拥有了这个对象的锁，那直接进入***\*步骤\*******\*5\*******\*）\****执行同步块就可以了，否则就说明这个锁对象已经被其他线程抢占了，执行***\*步骤2）\****
 
-![img](https://img-blog.csdnimg.cn/20200227225231913.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231913.png)
 
  
 
-![img](https://img-blog.csdnimg.cn/20200227225231906.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231906.png)
 
  
 
@@ -94,7 +94,7 @@ Synchronized是通过对象内部的**监视器锁（Monitor）**来实现的。
 
 ### **三种索各自的优缺点和适用场景：**
 
-![img](https://img-blog.csdnimg.cn/20200227225231904.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231904.png)
 
  
 
@@ -102,7 +102,7 @@ Synchronized是通过对象内部的**监视器锁（Monitor）**来实现的。
 
 消除锁是虚拟机另外一种锁的优化，这种优化更彻底，在***\*JIT\****编译时，对运行上下文进行扫描，去除不可能存在竞争的锁。锁消除可以节省毫无意义的请求锁的时间。比如下面代码的method1和method2的执行效率是一样的，因为object锁是私有局部变量，不存在所得竞争关系。
 
-![img](https://img-blog.csdnimg.cn/20200227225231909.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231909.jpeg)
 
 **原理：**
 
@@ -180,7 +180,7 @@ public void f() {
 
 锁粗化是虚拟机对另一种极端情况的优化处理，通过扩大锁的范围，避免反复加锁和释放锁。比如下面method3经过锁粗化优化之后就和method4执行效率一样了。
 
-![img](https://img-blog.csdnimg.cn/20200227225231908.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2N5OTczMDcxMjYz,size_16,color_FFFFFF,t_70)
+![img](http://img.fosuchao.com/20200227225231908.jpeg)
 
  
 

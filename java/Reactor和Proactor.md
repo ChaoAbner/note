@@ -14,7 +14,7 @@
 
 ### Reactor模式
 
-![](https://pic4.zhimg.com/80/v2-0f72e05db326c4d1f4e416178cc8c658_720w.jpg)
+![](http://img.fosuchao.com/v2-0f72e05db326c4d1f4e416178cc8c658_720w.jpg)
 
 > Reactor 是这样一种模式，它要求主线程（I/O处理单元）只负责监听文件描述上是否有事件发生，有的话就立即将该事件通知工作线程（逻辑单元）。除此之外，主线程不做任何其他实质性的工作。读写数据，接受新的连接，以及处理客户请求均在工作线程中完成。
 
@@ -30,7 +30,7 @@
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/2100026-a2e15f5fd17e96d8.png?imageMogr2/auto-orient/strip|imageView2/2/w/884/format/webp)
+![image-20210223233044525](http://img.fosuchao.com/image-20210223233044525.png)
 
 ### Proactor模式
 
@@ -48,7 +48,7 @@
 
 
 
-![img](https:////upload-images.jianshu.io/upload_images/2100026-273b3206fddb27fb.png?imageMogr2/auto-orient/strip|imageView2/2/w/920/format/webp)
+![image-20210223233054546](http://img.fosuchao.com/image-20210223233054546.png)
 
 2、通俗理解
 

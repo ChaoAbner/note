@@ -67,13 +67,13 @@ Spring提供了4种类型的AOP支持：
 
 Spring借助AspectJ的切点表达式来定义Spring切面
 
-![1568189328242](F:\typoraImg\1568189328242.png)
+![1568189328242](http://img.fosuchao.com/1568189328242.png)
 
-![1568189355668](F:\typoraImg\1568189355668.png)
+![1568189355668](http://img.fosuchao.com/1568189355668.png)
 
 ### 编写切点
 
-![1568189423179](F:\typoraImg\1568189423179.png)
+![1568189423179](http://img.fosuchao.com/1568189423179.png)
 
 ### 在切点中选择bean
 
@@ -87,7 +87,7 @@ execution(* concert.Performance.perform(..)) and bean('woodstock')
 
 Audience类：观看演出的切面
 
-![1568189901443](F:\typoraImg\1568189901443.png)
+![1568189901443](http://img.fosuchao.com/1568189901443.png)
 
 使用AspectJ注解来表明这个类是一个切面。
 
@@ -97,9 +97,9 @@ Audience类：观看演出的切面
 
 ### 处理通知中的参数
 
-![1568199410026](F:\typoraImg\1568199410026.png)
+![1568199410026](http://img.fosuchao.com/1568199410026.png)
 
-![1568199477309](F:\typoraImg\1568199477309.png)
+![1568199477309](http://img.fosuchao.com/1568199477309.png)
 
 在切点表达式中声明参数，这个参数传入到playTrack这个通知方法中。
 

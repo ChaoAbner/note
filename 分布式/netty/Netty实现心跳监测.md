@@ -8,9 +8,9 @@
 
 `IdleStateHandler`的构造函数有多个，下图的四个参数分别是**读空闲监测时间，写空闲监测时间，读写空闲监测时间**，**时间单位**。如果不传入，默认为0，传入0的话默认不进行空闲检测。
 
-![1581666600116](F:\typoraImg\1581666600116.png)
+![1581666600116](http://img.fosuchao.com/1581666600116.png)
 
-![1581666622270](F:\typoraImg\1581666622270.png)
+![1581666622270](http://img.fosuchao.com/1581666622270.png)
 
 ​		在我们的自定义处理器中，继承`ChanneInboundHandlerAdapter`类，重写`userEventTriggered`方法，当连接监测为空闲状态的时候，这个方法会被触发，所以我们可以在这个方法中添加自己的逻辑。来处理这种空闲的情况。
 
@@ -18,15 +18,15 @@
 
 ​		在`IdleStateHandler`类中的channelActive方法中，添加了自己的`initialize`方法。
 
-![1581666908209](F:\typoraImg\1581666908209.png)
+![1581666908209](http://img.fosuchao.com/1581666908209.png)
 
 ​		在`initialize`方法中，先判断有没有传入超时时间，如果大于0，定时任务添加到对应线程`EventLoopExecutor`对应的任务队列`taskQueue`中，在对应线程的run()方法中循环执行。
 
-![1581667008765](F:\typoraImg\1581667008765.png)
+![1581667008765](http://img.fosuchao.com/1581667008765.png)
 
 `ReaderIdleTimeoutTask`作为一个`Runnable`传入线程定时执行。
 
-![1581667311452](F:\typoraImg\1581667311452.png)
+![1581667311452](http://img.fosuchao.com/1581667311452.png)
 
 ### 总结
 

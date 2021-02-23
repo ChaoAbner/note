@@ -2,7 +2,7 @@
 
 堆外内存一直是Java业务开发人员难以企及的隐藏领域，究竟他是干什么的，以及如何更好的使用呢？那就请跟着我进入这个世界吧。
 
-> **一、什么是堆外内存**
+## 什么是堆外内存
 
 **1、堆内内存（on-heap memory）回顾**
  堆外内存和堆内内存是相对的二个概念，其中堆内内存是我们平常工作中接触比较多的，我们在jvm参数中只要使用-Xms，-Xmx等参数就可以设置堆的大小和最大值，理解jvm的堆还需要知道下面这个公式：
@@ -13,13 +13,7 @@
 
 如下面的图所示：
 
-
-
-
-
-![img](https:////upload-images.jianshu.io/upload_images/1049928-b799abaaa261293d.png?imageMogr2/auto-orient/strip|imageView2/2/w/634/format/webp)
-
-Paste_Image.png
+![image-20210223231215980](http://img.fosuchao.com/image-20210223231215980.png)
 
 在使用堆内内存（on-heap memory）的时候，完全遵守JVM虚拟机的内存管理机制，采用垃圾回收器（GC）统一进行内存管理，GC会在某些特定的时间点进行一次彻底回收，也就是Full GC，GC会对所有分配的堆内内存进行扫描，在这个过程中会对JAVA应用程序的性能造成一定影响，还可能会产生Stop The World。
 
@@ -32,15 +26,13 @@ Paste_Image.png
 - 分区算法（Region）
    **注：**在这里我们不对各个算法进行深入介绍，感兴趣的同学可以关注我的下一篇关于垃圾回收算法的介绍分享。
 
-**2、堆外内存（off-heap memory）介绍**
+## 堆外内存（off-heap memory）介绍
 
 和堆内内存相对应，堆外内存就是把内存对象分配在Java虚拟机的堆以外的内存，这些内存直接受操作系统管理（而不是虚拟机），这样做的结果就是能够在一定程度上减少垃圾回收对应用程序造成的影响。
 
-作为JAVA开发者我们经常用java.nio.DirectByteBuffer对象进行堆外内存的管理和使用，它会在对象创建的时候就分配堆外内存。
+作为JAVA开发者我们经常用`java.nio.DirectByteBuffer`对象进行堆外内存的管理和使用，它会在对象创建的时候就分配堆外内存。
 
-DirectByteBuffer类是在Java Heap外分配内存，对堆外内存的申请主要是通过成员变量unsafe来操作，下面介绍构造方法
-
-
+`DirectByteBuffer`类是在Java Heap外分配内存，对堆外内存的申请主要是通过成员变量unsafe来操作，下面介绍构造方法
 
 ```csharp
 DirectByteBuffer(int cap) {                 
@@ -78,8 +70,6 @@ DirectByteBuffer(int cap) {
 
 **注：**在Cleaner 内部中通过一个列表，维护了一个针对每一个 directBuffer 的一个回收堆外内存的 线程对象(Runnable)，回收操作是发生在 Cleaner 的 clean() 方法中。
 
-
-
 ```java
 private static class Deallocator implements Runnable  {
     private static Unsafe unsafe = Unsafe.getUnsafe();
@@ -105,7 +95,7 @@ private static class Deallocator implements Runnable  {
 }
 ```
 
-> **二、使用堆外内存的优点**
+## 使用堆外内存的优点
 
 **1、减少了垃圾回收**
  因为垃圾回收会暂停其他的工作。
@@ -115,11 +105,11 @@ private static class Deallocator implements Runnable  {
 
 同样任何一个事物使用起来有优点就会有缺点，堆外内存的缺点就是内存难以控制，使用了堆外内存就间接失去了JVM管理内存的可行性，改由自己来管理，当发生内存溢出时排查起来非常困难。
 
-> **三、使用DirectByteBuffer的注意事项**
+## 使用DirectByteBuffer的注意事项
 
 java.nio.DirectByteBuffer对象在创建过程中会先通过Unsafe接口直接通过os::malloc来分配内存，然后将内存的起始地址和大小存到java.nio.DirectByteBuffer对象里，这样就可以直接操作这些内存。这些内存只有在DirectByteBuffer回收掉之后才有机会被回收，因此如果这些对象大部分都移到了old，但是一直没有触发CMS GC或者Full GC，那么悲剧将会发生，因为你的物理内存被他们耗尽了，因此为了避免这种悲剧的发生，通过-XX:MaxDirectMemorySize来指定最大的堆外内存大小，当使用达到了阈值的时候将调用System.gc来做一次full gc，以此来回收掉没有被使用的堆外内存。
 
-> **四、DirectByteBuffer使用测试**
+## DirectByteBuffer使用测试
 
 我们在写NIO程序经常使用ByteBuffer来读取或者写入数据，那么使用ByteBuffer.allocate(capability)还是使用ByteBuffer.allocteDirect(capability)来分配缓存了？第一种方式是分配JVM堆内存，属于GC管辖范围，由于需要拷贝所以速度相对较慢；第二种方式是分配OS本地内存，不属于GC管辖范围，由于不需要内存拷贝所以速度相对较快。
 
@@ -144,8 +134,6 @@ public class DirectByteBufferTest {
 
 测试用例1：设置JVM参数-Xmx100m，运行异常，因为如果没设置-XX:MaxDirectMemorySize，则默认与-Xmx参数值相同，分配128M直接内存超出限制范围。
 
-
-
 ```css
 Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory
     at java.nio.Bits.reserveMemory(Bits.java:658)
@@ -157,8 +145,6 @@ Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory
 测试用例2：设置JVM参数-Xmx256m，运行正常，因为128M小于256M，属于范围内分配。
 
 测试用例3：设置JVM参数-Xmx256m -XX:MaxDirectMemorySize=100M，运行异常，分配的直接内存128M超过限定的100M。
-
-
 
 ```css
 Exception in thread "main" java.lang.OutOfMemoryError: Direct buffer memory
@@ -195,7 +181,7 @@ public class DirectByteBufferTest {
 }
 ```
 
-> **五、细说System.gc方法**
+## 细说System.gc方法
 
 **1、JDK里的System.gc的实现**
 
@@ -251,7 +237,7 @@ public native void gc();
 
 说起Full gc我们最先想到的就是**stop thd world**，这里要先提到VMThread，在jvm里有这么一个线程不断轮询它的队列，这个队列里主要是存一些VM_operation的动作，比如最常见的就是内存分配失败要求做GC操作的请求等，在对gc这些操作执行的时候会先将其他业务线程都进入到安全点，也就是这些线程从此不再执行任何字节码指令，只有当出了安全点的时候才让他们继续执行原来的指令，因此这其实就是我们说的stop the world(STW)，整个进程相当于静止了。
 
-> **六、开源堆外缓存框架**
+## 开源堆外缓存框架
 
 关于堆外缓存的开源实现。查询了一些资料后了解到的主要有：
 
